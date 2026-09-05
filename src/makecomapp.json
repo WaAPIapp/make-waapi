@@ -177,9 +177,68 @@
         {
             "label": "Production",
             "baseUrl": "https://eu1.make.com/api",
-            "appId": "-FILL-ME-after-the-app-is-created-in-make",
+            "appId": "waapi-3idhbi",
             "appVersion": 1,
-            "apikeyFile": "../.secrets/apikey"
+            "apikeyFile": "../.secrets/apikey",
+            "idMapping": {
+                "connection": [
+                    {
+                        "local": "waapi",
+                        "remote": "waapi-3idhbi"
+                    }
+                ],
+                "webhook": [
+                    {
+                        "local": "newMessage",
+                        "remote": "waapi-3idhbi"
+                    },
+                    {
+                        "local": "messageStatus",
+                        "remote": "waapi-3idhbi2"
+                    },
+                    {
+                        "local": "instanceStatus",
+                        "remote": "waapi-3idhbi3"
+                    }
+                ],
+                "rpc": [
+                    {
+                        "local": "listInstances",
+                        "remote": "listInstances"
+                    }
+                ],
+                "module": [
+                    {
+                        "local": "newMessage",
+                        "remote": "newMessage"
+                    },
+                    {
+                        "local": "messageStatusChanged",
+                        "remote": "messageStatusChanged"
+                    },
+                    {
+                        "local": "instanceStatusChanged",
+                        "remote": "instanceStatusChanged"
+                    },
+                    {
+                        "local": "sendAMessage",
+                        "remote": "sendAMessage"
+                    },
+                    {
+                        "local": "sendMedia",
+                        "remote": "sendMedia"
+                    },
+                    {
+                        "local": "sendALocation",
+                        "remote": "sendALocation"
+                    },
+                    {
+                        "local": "makeAnApiCall",
+                        "remote": "makeAnApiCall"
+                    }
+                ],
+                "function": []
+            }
         }
     ]
 }
