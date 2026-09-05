@@ -47,10 +47,12 @@ delivers nothing:
 
 ## Errors
 
-A successful HTTP exchange is not proof a message was sent: the API answers
-`200` with `{"status": "error"}` when the connected account has dropped off.
-This app treats that as a failed module run rather than passing an
-error-shaped bundle down the scenario.
+A successful HTTP exchange is not proof a message was sent. Every action
+answers with two status fields: `status` says the request reached the instance,
+`data.status` says the instance carried it out. A malformed chat ID comes back
+as HTTP 200 with `status: success` and `data.status: error` — nothing was sent.
+This app checks the inner field and treats that as a failed module run rather
+than passing an error-shaped bundle down the scenario.
 
 ## Support
 

@@ -85,6 +85,16 @@ def call(iml_path: Path, params: dict, token: str):
             return error.code, {"raw": raw[:200]}, url, body
 
 
+def inner_status(body):
+    """body.data.status -- whether the instance carried the action out.
+
+    The outer body.status only reports that the request reached the instance,
+    so it says "success" for a malformed chatId that was never sent.
+    """
+    data = body.get("data")
+    return data.get("status") if isinstance(data, dict) else None
+
+
 def check(label: str, ok: bool, detail: str = "") -> None:
     results.append((ok, label, detail))
     print(f"  {'ok  ' if ok else 'FAIL'} {label}{('  — ' + detail) if detail else ''}")
@@ -102,8 +112,13 @@ def main() -> int:
 
     # --- Webhooks: attach then detach, for each event set -------------------
     print("\nWebhooks — attach and detach (no messages are sent)")
-    for hook in ("new-message", "message-status", "instance-status"):
-        params = {"instanceId": LIVE_INSTANCE}
+    for hook, params in (
+        ("new-message", {"instanceId": LIVE_INSTANCE}),
+        # The generic webhook takes the event list from the multi-select, so
+        # the harness has to supply one -- a single combined subscription is
+        # exactly what the fixed triggers could not do.
+        ("events", {"instanceId": LIVE_INSTANCE, "events": ["message", "message_ack", "qr"]}),
+    ):
         status, body, _, sent = call(SRC / f"webhooks/{hook}/attach.iml.json", params, token)
         sub = (body.get("data") or {}).get("id")
         check(f"{hook}: attach", status in (200, 201) and bool(sub),
@@ -129,8 +144,15 @@ def main() -> int:
     ]
     for module, params in cases:
         status, body, _, _ = call(SRC / f"modules/{module}/communication.iml.json", params, token)
-        ok = status == 200 and body.get("status") == "success"
-        check(f"{module}", ok, f"HTTP {status}, status={body.get('status')}")
+        ok = status == 200 and body.get("status") == "success" and inner_status(body) != "error"
+        check(f"{module}", ok, f"HTTP {status}, outer={body.get('status')}, inner={inner_status(body)}")
+
+    # --- Download Media: the gap the new module closes ----------------------
+    print("\nDownload Media")
+    status, body, _, _ = call(SRC / "modules/download-media/communication.iml.json",
+                              {"instanceId": LIVE_INSTANCE, "messageId": "definitely-not-a-real-id"}, token)
+    check("download-media reports a bad id in the inner status",
+          inner_status(body) == "error", f"outer={body.get('status')}, inner={inner_status(body)}")
 
     # --- Universal module: a read-only action, no message -------------------
     print("\nUniversal module")
@@ -150,8 +172,19 @@ def main() -> int:
     surfaced = status >= 400 or envelope == "error"
     check("a disconnected instance does not look like success", surfaced,
           f"HTTP {status}, status={envelope}")
+    # The trap that motivated all of this: the request reaches the instance,
+    # so the outer envelope says success, while the instance refused the action.
+    print("\nInner envelope — the authoritative answer")
+    status, body, _, _ = call(SRC / "modules/send-a-message/communication.iml.json",
+                              {"instanceId": LIVE_INSTANCE, "chatId": "bogus",
+                               "message": "This must not be reported as sent."}, token)
+    check("a malformed chatId is success outside and error inside",
+          body.get("status") == "success" and inner_status(body) == "error",
+          f"outer={body.get('status')}, inner={inner_status(body)}")
     base = json.loads(strip_comments((SRC / "general/base.iml.json").read_text()))
-    check("base treats status=error as invalid", "status != 'error'" in json.dumps(base.get("response", {})))
+    valid = base["response"]["valid"]
+    check("base checks the inner status, not only the outer",
+          "body.data.status" in valid, valid)
 
     print()
     failed = [r for r in results if not r[0]]

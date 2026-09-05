@@ -1,0 +1,10 @@
+{
+    "url": "/instances/{{parameters.instanceId}}/client/action/download-media",
+    "method": "POST",
+    "body": {
+        "messageId": "{{parameters.messageId}}"
+    },
+    "response": {
+        "output": "{{body}}"
+    }
+}

@@ -5,10 +5,20 @@
         "accept": "application/json"
     },
     "response": {
+        // Two envelopes, and the inner one is the authoritative answer.
+        //
+        //   body.status       did the request reach the instance
+        //   body.data.status  did the instance carry the action out
+        //
+        // A malformed chatId comes back as {"status":"success",
+        // "data":{"status":"error","message":"incorrect chatId format."}} --
+        // nothing was sent, and a check on the outer status alone reports a
+        // delivered message. body.data.status is absent on endpoints that do
+        // not wrap a client action, where the comparison passes untouched.
+        "valid": "{{if(body.status != 'error', if(body.data.status != 'error', true, false), false)}}",
         "error": {
-            "message": "[{{statusCode}}] {{ifempty(body.message, ifempty(body.error, 'Request failed'))}}"
-        },
-        "valid": "{{if(body.status, body.status != 'error', true)}}"
+            "message": "[{{statusCode}}] {{ifempty(body.data.message, ifempty(body.message, ifempty(body.error, 'Request failed')))}}{{if(body.data.explanation, ' — ' + body.data.explanation, '')}}"
+        }
     },
     "log": {
         "sanitize": [

@@ -1,0 +1,17 @@
+[
+    {
+        "name": "event",
+        "type": "text",
+        "label": "Event"
+    },
+    {
+        "name": "instanceId",
+        "type": "number",
+        "label": "Instance ID"
+    },
+    {
+        "name": "data",
+        "type": "any",
+        "label": "Event data"
+    }
+]

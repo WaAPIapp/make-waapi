@@ -1,0 +1,23 @@
+{
+    // Absolute, not relative: Make's base is inherited by modules and RPCs
+    // only. A webhook resolving "/instances" fails with "Invalid URL".
+    "url": "https://waapi.app/api/v1/instances/{{parameters.instanceId}}/webhooks",
+    "method": "POST",
+    "body": {
+        "url": "{{webhook.url}}",
+        // Straight from the multi-select, which Make hands over as an array --
+        // the same shape the API's events field takes.
+        "events": "{{parameters.events}}",
+        "source": "make"
+    },
+    "response": {
+        "error": {
+            "message": "[{{statusCode}}] {{ifempty(body.message, 'Could not subscribe. The API token needs the update scope.')}}"
+        },
+        "data": {
+            "subscriptionId": "{{body.data.id}}",
+            "instanceId": "{{parameters.instanceId}}",
+            "detachUrl": "https://waapi.app/api/v1/instances/{{parameters.instanceId}}/webhooks/{{body.data.id}}"
+        }
+    }
+}

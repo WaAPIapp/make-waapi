@@ -3,16 +3,16 @@
         "label": "Messages",
         "modules": [
             "newMessage",
-            "messageStatusChanged",
             "sendAMessage",
             "sendMedia",
-            "sendALocation"
+            "sendALocation",
+            "downloadMedia"
         ]
     },
     {
-        "label": "Instance",
+        "label": "Events",
         "modules": [
-            "instanceStatusChanged"
+            "watchEvents"
         ]
     },
     {

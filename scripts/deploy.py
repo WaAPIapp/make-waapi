@@ -133,7 +133,7 @@ def main() -> int:
 
     # --- app-level code -----------------------------------------------------
     print("General:")
-    for code, section in (("base", "base"), ("common", "common"), ("groups", "groups")):
+    for code, section in (("base", "base"), ("common", "common")):
         put_section(f"/sdk/apps/{app}/{version}/{section}", doc["generalCodeFiles"][code], f"app/{section}")
     put_section(f"/sdk/apps/{app}/{version}/readme", doc["generalCodeFiles"]["readme"], "app/readme")
 
@@ -243,6 +243,13 @@ def main() -> int:
         for code, file_rel in meta["codeFiles"].items():
             if code in SECTION:
                 put_section(f"/sdk/apps/{app}/{version}/modules/{mid}/{SECTION[code]}", file_rel, f"module/{mid}/{code}")
+
+    # Groups lists module names, so it can only be accepted once those modules
+    # exist. Uploaded with the rest of the app-level code it fails on a first
+    # deploy with "Invalid module name(s)" and succeeds on the second run,
+    # which reads as flakiness rather than an ordering constraint.
+    print("\nGroups:")
+    put_section(f"/sdk/apps/{app}/{version}/groups", doc["generalCodeFiles"]["groups"], "app/groups")
 
     (SRC / "makecomapp.json").write_text(json.dumps(doc, indent=4) + "\n")
 

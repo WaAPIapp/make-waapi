@@ -31,30 +31,17 @@
                     "requiredScope": "webhooks/new-message/required-scope.iml.json"
                 }
             },
-            "messageStatus": {
-                "label": "Message Status",
+            "events": {
+                "label": "Events",
                 "webhookType": "web",
                 "connection": "waapi",
                 "altConnection": null,
                 "codeFiles": {
-                    "communication": "webhooks/message-status/communication.iml.json",
-                    "params": "webhooks/message-status/params.iml.json",
-                    "attach": "webhooks/message-status/attach.iml.json",
-                    "detach": "webhooks/message-status/detach.iml.json",
-                    "requiredScope": "webhooks/message-status/required-scope.iml.json"
-                }
-            },
-            "instanceStatus": {
-                "label": "Instance Status",
-                "webhookType": "web",
-                "connection": "waapi",
-                "altConnection": null,
-                "codeFiles": {
-                    "communication": "webhooks/instance-status/communication.iml.json",
-                    "params": "webhooks/instance-status/params.iml.json",
-                    "attach": "webhooks/instance-status/attach.iml.json",
-                    "detach": "webhooks/instance-status/detach.iml.json",
-                    "requiredScope": "webhooks/instance-status/required-scope.iml.json"
+                    "communication": "webhooks/events/communication.iml.json",
+                    "params": "webhooks/events/params.iml.json",
+                    "attach": "webhooks/events/attach.iml.json",
+                    "detach": "webhooks/events/detach.iml.json",
+                    "requiredScope": "webhooks/events/required-scope.iml.json"
                 }
             }
         },
@@ -83,36 +70,6 @@
                     "interface": "modules/new-message/interface.iml.json",
                     "mappableParams": "modules/new-message/mappable-params.iml.json",
                     "samples": "modules/new-message/samples.iml.json"
-                }
-            },
-            "messageStatusChanged": {
-                "label": "Watch Message Status",
-                "description": "Triggers when a message you sent is delivered or read.",
-                "moduleType": "instant_trigger",
-                "connection": "waapi",
-                "altConnection": null,
-                "webhook": "messageStatus",
-                "codeFiles": {
-                    "communication": "modules/message-status-changed/communication.iml.json",
-                    "staticParams": "modules/message-status-changed/static-params.iml.json",
-                    "interface": "modules/message-status-changed/interface.iml.json",
-                    "mappableParams": "modules/message-status-changed/mappable-params.iml.json",
-                    "samples": "modules/message-status-changed/samples.iml.json"
-                }
-            },
-            "instanceStatusChanged": {
-                "label": "Watch Instance Status",
-                "description": "Triggers when the instance connects, disconnects, fails to authenticate, or shows a new QR code.",
-                "moduleType": "instant_trigger",
-                "connection": "waapi",
-                "altConnection": null,
-                "webhook": "instanceStatus",
-                "codeFiles": {
-                    "communication": "modules/instance-status-changed/communication.iml.json",
-                    "staticParams": "modules/instance-status-changed/static-params.iml.json",
-                    "interface": "modules/instance-status-changed/interface.iml.json",
-                    "mappableParams": "modules/instance-status-changed/mappable-params.iml.json",
-                    "samples": "modules/instance-status-changed/samples.iml.json"
                 }
             },
             "sendAMessage": {
@@ -169,6 +126,35 @@
                     "interface": "modules/make-an-api-call/interface.iml.json",
                     "mappableParams": "modules/make-an-api-call/mappable-params.iml.json"
                 }
+            },
+            "watchEvents": {
+                "label": "Watch Events",
+                "description": "Triggers on any events you select \u2014 delivery receipts, reactions, group changes, connection status, QR codes and more. Pick several to handle them in one scenario.",
+                "moduleType": "instant_trigger",
+                "connection": "waapi",
+                "altConnection": null,
+                "webhook": "events",
+                "codeFiles": {
+                    "communication": "modules/watch-events/communication.iml.json",
+                    "staticParams": "modules/watch-events/static-params.iml.json",
+                    "mappableParams": "modules/watch-events/mappable-params.iml.json",
+                    "interface": "modules/watch-events/interface.iml.json",
+                    "samples": "modules/watch-events/samples.iml.json"
+                }
+            },
+            "downloadMedia": {
+                "label": "Download Media",
+                "description": "Downloads the file attached to a message, using the message id a trigger reports.",
+                "moduleType": "action",
+                "connection": "waapi",
+                "altConnection": null,
+                "actionCrud": "read",
+                "codeFiles": {
+                    "communication": "modules/download-media/communication.iml.json",
+                    "staticParams": "modules/download-media/static-params.iml.json",
+                    "mappableParams": "modules/download-media/mappable-params.iml.json",
+                    "interface": "modules/download-media/interface.iml.json"
+                }
             }
         },
         "function": {}
@@ -193,12 +179,8 @@
                         "remote": "waapi-3idhbi"
                     },
                     {
-                        "local": "messageStatus",
+                        "local": "events",
                         "remote": "waapi-3idhbi2"
-                    },
-                    {
-                        "local": "instanceStatus",
-                        "remote": "waapi-3idhbi3"
                     }
                 ],
                 "rpc": [
@@ -211,14 +193,6 @@
                     {
                         "local": "newMessage",
                         "remote": "newMessage"
-                    },
-                    {
-                        "local": "messageStatusChanged",
-                        "remote": "messageStatusChanged"
-                    },
-                    {
-                        "local": "instanceStatusChanged",
-                        "remote": "instanceStatusChanged"
                     },
                     {
                         "local": "sendAMessage",
@@ -235,6 +209,14 @@
                     {
                         "local": "makeAnApiCall",
                         "remote": "makeAnApiCall"
+                    },
+                    {
+                        "local": "watchEvents",
+                        "remote": "watchEvents"
+                    },
+                    {
+                        "local": "downloadMedia",
+                        "remote": "downloadMedia"
                     }
                 ],
                 "function": []

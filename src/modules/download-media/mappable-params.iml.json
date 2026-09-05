@@ -1,0 +1,16 @@
+[
+    {
+        "name": "instanceId",
+        "type": "select",
+        "label": "Instance",
+        "required": true,
+        "options": "rpc://listInstances"
+    },
+    {
+        "name": "messageId",
+        "type": "text",
+        "label": "Message ID",
+        "required": true,
+        "help": "The serialized message id, as delivered by a trigger in `data.message.id._serialized`. A trigger reports `hasMedia` when there is something to fetch."
+    }
+]

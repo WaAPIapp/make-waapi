@@ -1,0 +1,123 @@
+[
+    {
+        "name": "instanceId",
+        "type": "select",
+        "label": "Instance",
+        "required": true,
+        "options": "rpc://listInstances"
+    },
+    {
+        "name": "events",
+        "type": "select",
+        "label": "Events",
+        "multiple": true,
+        "required": true,
+        "help": "Pick every event this scenario should react to. They arrive through one subscription, so watching for a message and its delivery receipt is one scenario rather than two.",
+        "options": [
+            {
+                "label": "New message received  (message)",
+                "value": "message"
+            },
+            {
+                "label": "Loading data  (loading_screen)",
+                "value": "loading_screen"
+            },
+            {
+                "label": "QR code available  (qr)",
+                "value": "qr"
+            },
+            {
+                "label": "Authenticated  (authenticated)",
+                "value": "authenticated"
+            },
+            {
+                "label": "Authentication failed  (auth_failure)",
+                "value": "auth_failure"
+            },
+            {
+                "label": "Instance ready  (ready)",
+                "value": "ready"
+            },
+            {
+                "label": "Instance disconnected  (disconnected)",
+                "value": "disconnected"
+            },
+            {
+                "label": "Message created (sent or received)  (message_create)",
+                "value": "message_create"
+            },
+            {
+                "label": "Message edited  (message_edit)",
+                "value": "message_edit"
+            },
+            {
+                "label": "Message deleted for everyone  (message_revoke_everyone)",
+                "value": "message_revoke_everyone"
+            },
+            {
+                "label": "Message deleted for me  (message_revoke_me)",
+                "value": "message_revoke_me"
+            },
+            {
+                "label": "Message delivered or read  (message_ack)",
+                "value": "message_ack"
+            },
+            {
+                "label": "Reaction added, changed or removed  (message_reaction)",
+                "value": "message_reaction"
+            },
+            {
+                "label": "Media finished uploading  (media_uploaded)",
+                "value": "media_uploaded"
+            },
+            {
+                "label": "Someone joined a group  (group_join)",
+                "value": "group_join"
+            },
+            {
+                "label": "Someone left a group  (group_leave)",
+                "value": "group_leave"
+            },
+            {
+                "label": "Group information changed  (group_update)",
+                "value": "group_update"
+            },
+            {
+                "label": "Community created  (community_created)",
+                "value": "community_created"
+            },
+            {
+                "label": "Community updated  (community_updated)",
+                "value": "community_updated"
+            },
+            {
+                "label": "Subgroup linked to a community  (community_subgroup_linked)",
+                "value": "community_subgroup_linked"
+            },
+            {
+                "label": "Subgroup unlinked from a community  (community_subgroup_unlinked)",
+                "value": "community_subgroup_unlinked"
+            },
+            {
+                "label": "Community deactivated  (community_deactivated)",
+                "value": "community_deactivated"
+            },
+            {
+                "label": "Connection state changed  (change_state)",
+                "value": "change_state"
+            },
+            {
+                "label": "Incoming call  (call)",
+                "value": "call"
+            },
+            {
+                "label": "Poll vote changed  (vote_update)",
+                "value": "vote_update"
+            },
+            {
+                "label": "Presence changed (typing, online, last seen)  (presence_update)",
+                "value": "presence_update"
+            }
+        ]
+    }
+]

@@ -1,0 +1,12 @@
+{
+    "event": "message_ack",
+    "instanceId": 11087,
+    "data": {
+        "ack": 3,
+        "message": {
+            "id": {
+                "_serialized": "true_4915112345678@c.us_3EB0ABCDEF"
+            }
+        }
+    }
+}
