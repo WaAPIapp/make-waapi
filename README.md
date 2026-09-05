@@ -70,8 +70,38 @@ published, and that is the irreversible step.
 - The base response check treats `body.status == "error"` as a failure even on
   HTTP 200, which is how the API reports an instance that has dropped off.
 
-## Still to verify on the platform
+## Verified in Make
 
-The IML expressions in `attach`/`detach` and the webhook `communication` file
-follow Make's documented shapes but have never run against Make. First deploy
-is the first real test — before publishing, not after.
+Deployed to `waapi-3idhbi` on eu1 and exercised through the UI:
+
+- The connection is accepted and the instance dropdown fills from
+  `rpc://listInstances`.
+- `attach` registers a subscription carrying the right events and
+  `source: "make"`, and `detach` removes it when the webhook is deleted.
+- An instant trigger fires on a real incoming message.
+- The three send actions deliver; the universal module reaches an action with
+  no dedicated module.
+- A send against a disconnected instance answers HTTP 409 with
+  `status: "error"` — the deliberate error scenario Make's review asks for.
+
+Three defects the platform found that the API-level tests could not:
+
+1. Make's base is inherited by **modules and RPCs only**. The connection and
+   all six webhook files resolved `/instances` relative to nothing and failed
+   with "Invalid URL" before any request went out.
+2. `detach` built its path from two saved values; an empty half produced
+   `.../instances//webhooks/9`, a 404 Make discards silently, leaving the
+   subscription alive. `attach` now saves the finished URL.
+3. The app had no icon, so the scenario editor showed a placeholder.
+
+## Webhook lifecycle, as Make actually behaves
+
+Worth knowing before changing anything here:
+
+- A webhook is an object of its own. Switching a scenario off, trashing it,
+  or deleting the trigger module does **not** remove it — only deleting it
+  under **Webhooks** does, and that is what calls `detach`.
+- `attach` runs when the scenario first runs, not when the webhook is created.
+- A webhook's parameters cannot be changed afterwards. Pointing a trigger at a
+  different instance means deleting the webhook and creating a new one, so the
+  undocumented `update` directive is never reached and the app defines none.
