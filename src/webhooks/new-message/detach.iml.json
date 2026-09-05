@@ -1,0 +1,9 @@
+{
+    "url": "/instances/{{webhook.instanceId}}/webhooks/{{webhook.subscriptionId}}",
+    "method": "DELETE",
+    "response": {
+        "error": {
+            "message": "[{{statusCode}}] {{ifempty(body.message, 'Could not unsubscribe.')}}"
+        }
+    }
+}

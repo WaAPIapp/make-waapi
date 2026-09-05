@@ -1,0 +1,5 @@
+{
+    "event": "ready",
+    "instanceId": 123,
+    "data": { "status": "ready" }
+}

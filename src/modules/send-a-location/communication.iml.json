@@ -1,0 +1,14 @@
+{
+    "url": "/instances/{{parameters.instanceId}}/client/action/send-location",
+    "method": "POST",
+    "body": {
+        "chatId": "{{parameters.chatId}}",
+        "latitude": "{{parameters.latitude}}",
+        "longitude": "{{parameters.longitude}}",
+        "title": "{{parameters.title}}",
+        "address": "{{parameters.address}}"
+    },
+    "response": {
+        "output": "{{body}}"
+    }
+}

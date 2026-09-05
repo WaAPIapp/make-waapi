@@ -1,0 +1,33 @@
+[
+    {
+        "name": "instanceId",
+        "type": "select",
+        "label": "Instance",
+        "required": true,
+        "options": "rpc://listInstances"
+    },
+    {
+        "name": "chatId",
+        "type": "text",
+        "label": "Recipient chat ID",
+        "required": true,
+        "help": "The suffix decides where the message lands: `<phone>@c.us` for one person, `<group-id>@g.us` for a group, `<id>@newsletter` for a channel. A wrong suffix is accepted and delivers nothing."
+    },
+    {
+        "name": "message",
+        "type": "text",
+        "label": "Message",
+        "required": true
+    },
+    {
+        "name": "replyToMessageId",
+        "type": "text",
+        "label": "Reply to message ID"
+    },
+    {
+        "name": "previewLink",
+        "type": "boolean",
+        "label": "Show link previews",
+        "default": true
+    }
+]

@@ -1,0 +1,24 @@
+[
+    {
+        "label": "Messages",
+        "modules": [
+            "newMessage",
+            "messageStatusChanged",
+            "sendAMessage",
+            "sendMedia",
+            "sendALocation"
+        ]
+    },
+    {
+        "label": "Instance",
+        "modules": [
+            "instanceStatusChanged"
+        ]
+    },
+    {
+        "label": "Other",
+        "modules": [
+            "makeAnApiCall"
+        ]
+    }
+]

@@ -1,0 +1,18 @@
+{
+    "url": "/instances/{{parameters.instanceId}}/webhooks",
+    "method": "POST",
+    "body": {
+        "url": "{{webhook.url}}",
+        "events": ["ready", "disconnected", "auth_failure", "qr"],
+        "source": "make"
+    },
+    "response": {
+        "error": {
+            "message": "[{{statusCode}}] {{ifempty(body.message, 'Could not subscribe. The API token needs the update scope.')}}"
+        },
+        "data": {
+            "subscriptionId": "{{body.data.id}}",
+            "instanceId": "{{parameters.instanceId}}"
+        }
+    }
+}

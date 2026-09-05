@@ -1,0 +1,11 @@
+{
+    "url": "/instances",
+    "method": "GET",
+    "response": {
+        "iterate": "{{body.instances}}",
+        "output": {
+            "label": "{{ifempty(item.name, 'Instance ' + item.id)}}",
+            "value": "{{item.id}}"
+        }
+    }
+}

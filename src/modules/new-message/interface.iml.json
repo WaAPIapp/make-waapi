@@ -1,0 +1,18 @@
+[
+    { "name": "event", "type": "text", "label": "Event" },
+    { "name": "instanceId", "type": "number", "label": "Instance ID" },
+    { "name": "data", "type": "collection", "label": "Event data", "spec": [
+        { "name": "message", "type": "collection", "label": "Message", "spec": [
+            { "name": "id", "type": "collection", "label": "Message ID", "spec": [
+                { "name": "_serialized", "type": "text", "label": "Serialized ID" },
+                { "name": "fromMe", "type": "boolean", "label": "Sent by me" }
+            ]},
+            { "name": "body", "type": "text", "label": "Body" },
+            { "name": "type", "type": "text", "label": "Type" },
+            { "name": "from", "type": "text", "label": "From (chat ID)" },
+            { "name": "to", "type": "text", "label": "To (chat ID)" },
+            { "name": "timestamp", "type": "number", "label": "Timestamp" },
+            { "name": "hasMedia", "type": "boolean", "label": "Has media" }
+        ]}
+    ]}
+]

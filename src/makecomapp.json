@@ -1,0 +1,185 @@
+{
+    "fileVersion": 1,
+    "generalCodeFiles": {
+        "base": "general/base.iml.json",
+        "common": "general/common.json",
+        "readme": "README.md",
+        "groups": "modules/groups.json"
+    },
+    "components": {
+        "connection": {
+            "waapi": {
+                "label": "WaAPI",
+                "connectionType": "basic",
+                "codeFiles": {
+                    "communication": "connections/waapi/communication.iml.json",
+                    "params": "connections/waapi/params.iml.json"
+                }
+            }
+        },
+        "webhook": {
+            "newMessage": {
+                "label": "New Message",
+                "webhookType": "web",
+                "connection": "waapi",
+                "altConnection": null,
+                "codeFiles": {
+                    "communication": "webhooks/new-message/communication.iml.json",
+                    "params": "webhooks/new-message/params.iml.json",
+                    "attach": "webhooks/new-message/attach.iml.json",
+                    "detach": "webhooks/new-message/detach.iml.json",
+                    "requiredScope": "webhooks/new-message/required-scope.iml.json"
+                }
+            },
+            "messageStatus": {
+                "label": "Message Status",
+                "webhookType": "web",
+                "connection": "waapi",
+                "altConnection": null,
+                "codeFiles": {
+                    "communication": "webhooks/message-status/communication.iml.json",
+                    "params": "webhooks/message-status/params.iml.json",
+                    "attach": "webhooks/message-status/attach.iml.json",
+                    "detach": "webhooks/message-status/detach.iml.json",
+                    "requiredScope": "webhooks/message-status/required-scope.iml.json"
+                }
+            },
+            "instanceStatus": {
+                "label": "Instance Status",
+                "webhookType": "web",
+                "connection": "waapi",
+                "altConnection": null,
+                "codeFiles": {
+                    "communication": "webhooks/instance-status/communication.iml.json",
+                    "params": "webhooks/instance-status/params.iml.json",
+                    "attach": "webhooks/instance-status/attach.iml.json",
+                    "detach": "webhooks/instance-status/detach.iml.json",
+                    "requiredScope": "webhooks/instance-status/required-scope.iml.json"
+                }
+            }
+        },
+        "rpc": {
+            "listInstances": {
+                "label": "List instances",
+                "connection": "waapi",
+                "altConnection": null,
+                "codeFiles": {
+                    "communication": "rpcs/list-instances/communication.iml.json",
+                    "params": "rpcs/list-instances/params.iml.json"
+                }
+            }
+        },
+        "module": {
+            "newMessage": {
+                "label": "Watch New Messages",
+                "description": "Triggers when the connected account receives a message.",
+                "moduleType": "instant_trigger",
+                "connection": "waapi",
+                "altConnection": null,
+                "webhook": "newMessage",
+                "codeFiles": {
+                    "communication": "modules/new-message/communication.iml.json",
+                    "staticParams": "modules/new-message/static-params.iml.json",
+                    "interface": "modules/new-message/interface.iml.json",
+                    "mappableParams": "modules/new-message/mappable-params.iml.json",
+                    "samples": "modules/new-message/samples.iml.json"
+                }
+            },
+            "messageStatusChanged": {
+                "label": "Watch Message Status",
+                "description": "Triggers when a message you sent is delivered or read.",
+                "moduleType": "instant_trigger",
+                "connection": "waapi",
+                "altConnection": null,
+                "webhook": "messageStatus",
+                "codeFiles": {
+                    "communication": "modules/message-status-changed/communication.iml.json",
+                    "staticParams": "modules/message-status-changed/static-params.iml.json",
+                    "interface": "modules/message-status-changed/interface.iml.json",
+                    "mappableParams": "modules/message-status-changed/mappable-params.iml.json",
+                    "samples": "modules/message-status-changed/samples.iml.json"
+                }
+            },
+            "instanceStatusChanged": {
+                "label": "Watch Instance Status",
+                "description": "Triggers when the instance connects, disconnects, fails to authenticate, or shows a new QR code.",
+                "moduleType": "instant_trigger",
+                "connection": "waapi",
+                "altConnection": null,
+                "webhook": "instanceStatus",
+                "codeFiles": {
+                    "communication": "modules/instance-status-changed/communication.iml.json",
+                    "staticParams": "modules/instance-status-changed/static-params.iml.json",
+                    "interface": "modules/instance-status-changed/interface.iml.json",
+                    "mappableParams": "modules/instance-status-changed/mappable-params.iml.json",
+                    "samples": "modules/instance-status-changed/samples.iml.json"
+                }
+            },
+            "sendAMessage": {
+                "label": "Send a Message",
+                "description": "Sends a text message to a chat, group or channel.",
+                "moduleType": "action",
+                "connection": "waapi",
+                "altConnection": null,
+                "actionCrud": "create",
+                "codeFiles": {
+                    "communication": "modules/send-a-message/communication.iml.json",
+                    "staticParams": "modules/send-a-message/static-params.iml.json",
+                    "interface": "modules/send-a-message/interface.iml.json",
+                    "mappableParams": "modules/send-a-message/mappable-params.iml.json"
+                }
+            },
+            "sendMedia": {
+                "label": "Send Media",
+                "description": "Sends an image, video, audio file or document from a public URL.",
+                "moduleType": "action",
+                "connection": "waapi",
+                "altConnection": null,
+                "actionCrud": "create",
+                "codeFiles": {
+                    "communication": "modules/send-media/communication.iml.json",
+                    "staticParams": "modules/send-media/static-params.iml.json",
+                    "interface": "modules/send-media/interface.iml.json",
+                    "mappableParams": "modules/send-media/mappable-params.iml.json"
+                }
+            },
+            "sendALocation": {
+                "label": "Send a Location",
+                "description": "Sends a location pin to a chat.",
+                "moduleType": "action",
+                "connection": "waapi",
+                "altConnection": null,
+                "actionCrud": "create",
+                "codeFiles": {
+                    "communication": "modules/send-a-location/communication.iml.json",
+                    "staticParams": "modules/send-a-location/static-params.iml.json",
+                    "interface": "modules/send-a-location/interface.iml.json",
+                    "mappableParams": "modules/send-a-location/mappable-params.iml.json"
+                }
+            },
+            "makeAnApiCall": {
+                "label": "Make an API Call",
+                "description": "Performs an arbitrary authorised call to the WaAPI REST API. Use it for any action that has no dedicated module.",
+                "moduleType": "universal",
+                "connection": "waapi",
+                "altConnection": null,
+                "codeFiles": {
+                    "communication": "modules/make-an-api-call/communication.iml.json",
+                    "staticParams": "modules/make-an-api-call/static-params.iml.json",
+                    "interface": "modules/make-an-api-call/interface.iml.json",
+                    "mappableParams": "modules/make-an-api-call/mappable-params.iml.json"
+                }
+            }
+        },
+        "function": {}
+    },
+    "origins": [
+        {
+            "label": "Production",
+            "baseUrl": "https://eu1.make.com/api",
+            "appId": "-FILL-ME-after-the-app-is-created-in-make",
+            "appVersion": 1,
+            "apikeyFile": "../.secrets/apikey"
+        }
+    ]
+}

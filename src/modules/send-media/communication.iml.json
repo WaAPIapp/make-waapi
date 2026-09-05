@@ -1,0 +1,14 @@
+{
+    "url": "/instances/{{parameters.instanceId}}/client/action/send-media",
+    "method": "POST",
+    "body": {
+        "chatId": "{{parameters.chatId}}",
+        "mediaUrl": "{{parameters.mediaUrl}}",
+        "mediaName": "{{parameters.mediaName}}",
+        "mediaCaption": "{{parameters.mediaCaption}}",
+        "asDocument": "{{parameters.asDocument}}"
+    },
+    "response": {
+        "output": "{{body}}"
+    }
+}

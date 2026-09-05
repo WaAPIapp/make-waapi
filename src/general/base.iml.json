@@ -1,0 +1,18 @@
+{
+    "baseUrl": "https://waapi.app/api/v1",
+    "headers": {
+        "authorization": "Bearer {{connection.apiKey}}",
+        "accept": "application/json"
+    },
+    "response": {
+        "error": {
+            "message": "[{{statusCode}}] {{ifempty(body.message, ifempty(body.error, 'Request failed'))}}"
+        },
+        "valid": "{{if(body.status, body.status != 'error', true)}}"
+    },
+    "log": {
+        "sanitize": [
+            "request.headers.authorization"
+        ]
+    }
+}

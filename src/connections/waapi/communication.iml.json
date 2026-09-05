@@ -1,0 +1,20 @@
+{
+    "url": "/instances",
+    "method": "GET",
+    "headers": {
+        "authorization": "Bearer {{parameters.apiKey}}"
+    },
+    "response": {
+        "error": {
+            "message": "[{{statusCode}}] {{ifempty(body.message, 'The API token was rejected. Check that it exists and carries the read and update scopes.')}}"
+        },
+        "metadata": {
+            "value": "{{ifempty(body.instances[].name, 'WaAPI account')}}"
+        }
+    },
+    "log": {
+        "sanitize": [
+            "request.headers.authorization"
+        ]
+    }
+}

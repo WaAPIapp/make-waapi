@@ -1,0 +1,15 @@
+{
+    "event": "message",
+    "instanceId": 123,
+    "data": {
+        "message": {
+            "id": { "_serialized": "false_4915112345678@c.us_3EB0ABCDEF", "fromMe": false },
+            "body": "Is my order on the way?",
+            "type": "chat",
+            "from": "4915112345678@c.us",
+            "to": "4915199999999@c.us",
+            "timestamp": 1788550000,
+            "hasMedia": false
+        }
+    }
+}

@@ -1,0 +1,47 @@
+[
+    {
+        "name": "url",
+        "type": "text",
+        "label": "URL",
+        "required": true,
+        "help": "Relative to `https://waapi.app/api/v1`. Every client action lives at `/instances/{id}/client/action/{action}` — for example `/instances/123/client/action/send-seen`. The full list is in the API reference."
+    },
+    {
+        "name": "method",
+        "type": "select",
+        "label": "Method",
+        "required": true,
+        "default": "POST",
+        "options": [
+            { "label": "GET", "value": "GET" },
+            { "label": "POST", "value": "POST" },
+            { "label": "PUT", "value": "PUT" },
+            { "label": "PATCH", "value": "PATCH" },
+            { "label": "DELETE", "value": "DELETE" }
+        ]
+    },
+    {
+        "name": "headers",
+        "type": "array",
+        "label": "Headers",
+        "help": "Authorization is added for you from the connection.",
+        "spec": [
+            { "name": "key", "type": "text", "label": "Key" },
+            { "name": "value", "type": "text", "label": "Value" }
+        ]
+    },
+    {
+        "name": "qs",
+        "type": "array",
+        "label": "Query string",
+        "spec": [
+            { "name": "key", "type": "text", "label": "Key" },
+            { "name": "value", "type": "text", "label": "Value" }
+        ]
+    },
+    {
+        "name": "body",
+        "type": "any",
+        "label": "Body"
+    }
+]

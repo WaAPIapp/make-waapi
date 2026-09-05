@@ -1,0 +1,9 @@
+{
+    "verification": {
+        "condition": true
+    },
+    "respond": {
+        "status": 200
+    },
+    "output": "{{body}}"
+}

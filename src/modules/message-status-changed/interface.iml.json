@@ -1,0 +1,13 @@
+[
+    { "name": "event", "type": "text", "label": "Event" },
+    { "name": "instanceId", "type": "number", "label": "Instance ID" },
+    { "name": "data", "type": "collection", "label": "Event data", "spec": [
+        { "name": "ack", "type": "number", "label": "Acknowledgement level" },
+        { "name": "message", "type": "collection", "label": "Message", "spec": [
+            { "name": "id", "type": "collection", "label": "Message ID", "spec": [
+                { "name": "_serialized", "type": "text", "label": "Serialized ID" }
+            ]},
+            { "name": "to", "type": "text", "label": "To (chat ID)" }
+        ]}
+    ]}
+]

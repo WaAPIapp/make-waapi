@@ -1,0 +1,14 @@
+[
+    { "name": "status", "type": "text", "label": "Status" },
+    { "name": "instanceId", "type": "text", "label": "Instance ID" },
+    { "name": "data", "type": "collection", "label": "Result", "spec": [
+        { "name": "_data", "type": "collection", "label": "Message", "spec": [
+            { "name": "id", "type": "collection", "label": "Message ID", "spec": [
+                { "name": "_serialized", "type": "text", "label": "Serialized ID" }
+            ]},
+            { "name": "body", "type": "text", "label": "Body" },
+            { "name": "ack", "type": "number", "label": "Acknowledgement level" },
+            { "name": "t", "type": "number", "label": "Timestamp" }
+        ]}
+    ]}
+]

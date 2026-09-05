@@ -1,0 +1,9 @@
+[
+    {
+        "name": "instanceId",
+        "type": "select",
+        "label": "Instance",
+        "required": true,
+        "options": "rpc://listInstances"
+    }
+]

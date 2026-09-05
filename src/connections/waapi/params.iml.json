@@ -1,0 +1,9 @@
+[
+    {
+        "name": "apiKey",
+        "type": "text",
+        "label": "API token",
+        "required": true,
+        "help": "Create a token under Settings > API Tokens at waapi.app. It needs the **read** scope to list your instances and the **update** scope so a scenario can subscribe to events and unsubscribe when you turn it off. A token with read only will connect, but every trigger will fail to start."
+    }
+]

@@ -1,0 +1,38 @@
+[
+    {
+        "name": "instanceId",
+        "type": "select",
+        "label": "Instance",
+        "required": true,
+        "options": "rpc://listInstances"
+    },
+    {
+        "name": "chatId",
+        "type": "text",
+        "label": "Recipient chat ID",
+        "required": true
+    },
+    {
+        "name": "mediaUrl",
+        "type": "url",
+        "label": "Media URL",
+        "required": true,
+        "help": "A publicly reachable URL. The file is fetched by WaAPI, not uploaded from Make."
+    },
+    {
+        "name": "mediaName",
+        "type": "text",
+        "label": "File name"
+    },
+    {
+        "name": "mediaCaption",
+        "type": "text",
+        "label": "Caption"
+    },
+    {
+        "name": "asDocument",
+        "type": "boolean",
+        "label": "Send as document",
+        "default": false
+    }
+]

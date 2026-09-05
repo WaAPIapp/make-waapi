@@ -1,0 +1,13 @@
+{
+    "url": "/instances/{{parameters.instanceId}}/client/action/send-message",
+    "method": "POST",
+    "body": {
+        "chatId": "{{parameters.chatId}}",
+        "message": "{{parameters.message}}",
+        "replyToMessageId": "{{parameters.replyToMessageId}}",
+        "previewLink": "{{parameters.previewLink}}"
+    },
+    "response": {
+        "output": "{{body}}"
+    }
+}

@@ -1,0 +1,8 @@
+[
+    { "name": "event", "type": "text", "label": "Event" },
+    { "name": "instanceId", "type": "number", "label": "Instance ID" },
+    { "name": "data", "type": "collection", "label": "Event data", "spec": [
+        { "name": "status", "type": "text", "label": "Status" },
+        { "name": "qrCode", "type": "text", "label": "QR code (data URL)" }
+    ]}
+]

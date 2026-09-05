@@ -1,0 +1,14 @@
+[
+    {
+        "name": "instanceId",
+        "type": "select",
+        "label": "Instance",
+        "required": true,
+        "options": "rpc://listInstances"
+    },
+    { "name": "chatId", "type": "text", "label": "Recipient chat ID", "required": true },
+    { "name": "latitude", "type": "number", "label": "Latitude", "required": true },
+    { "name": "longitude", "type": "number", "label": "Longitude", "required": true },
+    { "name": "title", "type": "text", "label": "Title" },
+    { "name": "address", "type": "text", "label": "Address" }
+]
