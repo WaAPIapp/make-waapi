@@ -162,9 +162,10 @@ def main() -> int:
 def call_detach(hook: str, instance_id: int, subscription_id, token: str):
     """detach.iml.json addresses {{webhook.*}}, which only Make can fill."""
     spec = json.loads(strip_comments((SRC / f"webhooks/{hook}/detach.iml.json").read_text()))
-    resolved = (spec["url"]
-                .replace("{{webhook.instanceId}}", str(instance_id))
-                .replace("{{webhook.subscriptionId}}", str(subscription_id)))
+    # attach now stores the finished URL, so detach has a single placeholder.
+    resolved = spec["url"].replace(
+        "{{webhook.detachUrl}}",
+        f"{BASE}/instances/{instance_id}/webhooks/{subscription_id}")
     url = resolved if resolved.startswith("http") else BASE + resolved
     request = urllib.request.Request(url, method=spec["method"])
     request.add_header("Authorization", f"Bearer {token}")

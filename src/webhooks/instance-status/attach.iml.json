@@ -15,7 +15,8 @@
         },
         "data": {
             "subscriptionId": "{{body.data.id}}",
-            "instanceId": "{{parameters.instanceId}}"
+            "instanceId": "{{parameters.instanceId}}",
+            "detachUrl": "https://waapi.app/api/v1/instances/{{parameters.instanceId}}/webhooks/{{body.data.id}}"
         }
     }
 }

@@ -1,8 +1,10 @@
 {
-    // Absolute, not relative: Make's base is inherited by modules and RPCs
-    // only. A connection or webhook resolving "/instances" fails with
-    // "Invalid URL" before any request is made.
-    "url": "https://waapi.app/api/v1/instances/{{webhook.instanceId}}/webhooks/{{webhook.subscriptionId}}",
+    // One stored value, not two. Building the path from instanceId and
+    // subscriptionId separately means an empty half yields
+    // ".../instances//webhooks/9" -- a 404 Make discards silently, leaving the
+    // subscription alive and the instance posting to a dead scenario URL.
+    // attach saves the finished URL, so detach has nothing left to assemble.
+    "url": "{{webhook.detachUrl}}",
     "method": "DELETE",
     "response": {
         "error": {
