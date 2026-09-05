@@ -62,7 +62,10 @@ def resolve(node, params: dict):
 
 def call(iml_path: Path, params: dict, token: str):
     spec = json.loads(strip_comments(iml_path.read_text()))
-    url = BASE + resolve(spec["url"], params)
+    resolved = resolve(spec["url"], params)
+    # Connections and webhooks carry an absolute URL because they do not
+    # inherit the app's base; modules and RPCs stay relative.
+    url = resolved if resolved.startswith("http") else BASE + resolved
     method = resolve(spec.get("method", "GET"), params)
     body = resolve(spec.get("body"), params) if "body" in spec else None
 
@@ -159,9 +162,10 @@ def main() -> int:
 def call_detach(hook: str, instance_id: int, subscription_id, token: str):
     """detach.iml.json addresses {{webhook.*}}, which only Make can fill."""
     spec = json.loads(strip_comments((SRC / f"webhooks/{hook}/detach.iml.json").read_text()))
-    url = BASE + (spec["url"]
-                  .replace("{{webhook.instanceId}}", str(instance_id))
-                  .replace("{{webhook.subscriptionId}}", str(subscription_id)))
+    resolved = (spec["url"]
+                .replace("{{webhook.instanceId}}", str(instance_id))
+                .replace("{{webhook.subscriptionId}}", str(subscription_id)))
+    url = resolved if resolved.startswith("http") else BASE + resolved
     request = urllib.request.Request(url, method=spec["method"])
     request.add_header("Authorization", f"Bearer {token}")
     try:

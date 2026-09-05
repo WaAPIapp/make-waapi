@@ -60,9 +60,11 @@ def content_type_for(file_rel: str) -> str:
 
 
 def request(method: str, path: str, token: str, zone: str, body=None, raw: str | None = None,
-            ctype_override: str | None = None):
+            ctype_override: str | None = None, raw_bytes: bytes | None = None):
     url = f"https://{zone}/api/v2{path}"
-    if raw is not None:
+    if raw_bytes is not None:
+        data, ctype = raw_bytes, (ctype_override or "application/octet-stream")
+    elif raw is not None:
         data, ctype = raw.encode(), (ctype_override or "application/jsonc")
     elif body is not None:
         data, ctype = json.dumps(body).encode(), "application/json"
@@ -134,6 +136,18 @@ def main() -> int:
     for code, section in (("base", "base"), ("common", "common"), ("groups", "groups")):
         put_section(f"/sdk/apps/{app}/{version}/{section}", doc["generalCodeFiles"][code], f"app/{section}")
     put_section(f"/sdk/apps/{app}/{version}/readme", doc["generalCodeFiles"]["readme"], "app/readme")
+
+    # The icon is not part of makecomapp.json -- it is binary, and the clone
+    # format has no slot for it. Without this the app shows a placeholder,
+    # which is what a missing icon looks like in the scenario editor.
+    icon = ROOT / "assets" / "icon.png"
+    if icon.is_file():
+        status, body = request("PUT", f"/sdk/apps/{app}/{version}/icon", token, zone,
+                               raw_bytes=icon.read_bytes(), ctype_override="image/png")
+        ok = 200 <= status < 300
+        print(f"  {'ok  ' if ok else 'FAIL'} app/icon  ({status})")
+        if not ok:
+            failures.append(f"app/icon: {body}")
 
     # --- connection (not versioned in the API) ------------------------------
     print("\nConnection:")

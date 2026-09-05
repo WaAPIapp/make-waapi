@@ -1,5 +1,8 @@
 {
-    "url": "/instances/{{webhook.instanceId}}/webhooks/{{webhook.subscriptionId}}",
+    // Absolute, not relative: Make's base is inherited by modules and RPCs
+    // only. A connection or webhook resolving "/instances" fails with
+    // "Invalid URL" before any request is made.
+    "url": "https://waapi.app/api/v1/instances/{{webhook.instanceId}}/webhooks/{{webhook.subscriptionId}}",
     "method": "DELETE",
     "response": {
         "error": {
