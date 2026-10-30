@@ -115,6 +115,10 @@
                 "value": "vote_update"
             },
             {
+                "label": "Media download retried: the file, or a final error  (media_download_retry)",
+                "value": "media_download_retry"
+            },
+            {
                 "label": "Presence changed (typing, online, last seen)  (presence_update)",
                 "value": "presence_update"
             }
