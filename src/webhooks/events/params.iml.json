@@ -119,6 +119,10 @@
                 "value": "media_download_retry"
             },
             {
+                "label": "Media downloaded: the file is available, fetch it with Download Media  (media_downloaded)",
+                "value": "media_downloaded"
+            },
+            {
                 "label": "Presence changed (typing, online, last seen)  (presence_update)",
                 "value": "presence_update"
             }
